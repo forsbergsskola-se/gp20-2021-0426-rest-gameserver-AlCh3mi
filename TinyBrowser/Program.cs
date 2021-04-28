@@ -1,52 +1,53 @@
 ﻿using System;
-using System.Text;
+using System.Linq;
 
 namespace TinyBrowser {
     class Program {
         static void Main(string[] args) {
+            var lastRequest = string.Empty;
+
             try {
-                Console.WriteLine("Enter website: ");
+                Console.Write("Enter website: ");
                 var host = Console.ReadLine();
+                Console.Write("Enter path   :");
+                var userInput = Console.ReadLine();
+
                 var tinyBrowser = new TinyBrowser(host, 80);
-                
-                var userInput = "/";
-
-                // if (userInput == string.Empty)
-                //     userInput = "GET / HTTP/1.1\r\nHost: acme.com\r\n\r\n";
-
-                var request = BuildHtmlRequest(userInput, host);
+                var request = TinyBrowser.BuildHtmlRequest(userInput, host);
+                lastRequest = request;
                 tinyBrowser.SendRequest(request);
-                
-                //Display Webpage
-                var response = tinyBrowser.GetHostResponse();
-                Console.WriteLine(response);
 
-                //Display Hyperlink Options
-                //Display the Title of the page
-                var title = tinyBrowser.FindOccurrences("<title>", "</title>", response);
-                Console.WriteLine(title[0].Replace("<title>", "").Replace("</title>", "") +"\n");
+                do {
+                    //Display Webpage
+                    var response = tinyBrowser.GetHostResponse();
+                    Console.WriteLine(response);
 
-                //Display all hyperlinks found
-                var linksAsStrings = tinyBrowser.FindOccurrences("<a href=\"", "</a>", response);
-                var links = tinyBrowser.GenerateLinks(linksAsStrings);
-                var count = 0;
-                foreach (var link in links) {
-                    Console.WriteLine($"{++count}: {link.Title} - {link.Url}");
-                }
+                    //Display Hyperlink Options
+                    //Display the Title of the page
+                    Console.WriteLine(tinyBrowser.GetTitle(response) + "\n");
+
+                    //Display all hyperlinks found
+                    var links = tinyBrowser.GenerateLinks(response).ToList();
+                    var count = 0;
+                    foreach (var link in links) {
+                        Console.WriteLine($"{++count}: {link.Title} - {link.Url}");
+                    }
+
+                    Console.Write("Which link would you like to follow?: ");
+                    userInput = Console.ReadLine();
+                    if (userInput == "b") {
+                        tinyBrowser.SendRequest(lastRequest);
+                    }
+                    else {
+                        request = TinyBrowser.BuildHtmlRequest("/" + links[int.Parse(userInput) - 1].Url, host);
+                        lastRequest = request;
+                        tinyBrowser.SendRequest(request);
+                    }
+                } while (true);
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
             }
-        }
-
-        static string BuildHtmlRequest(string path, string host) {
-            
-            const string version = "HTTP/1.1\r\n";
-            
-            var sb = new StringBuilder();
-            sb.Append("GET ").Append($"{path} ").Append(version);
-            sb.Append("Host: ").Append(host).Append("\r\n\r\n");
-            return sb.ToString();
         }
     }
 }
