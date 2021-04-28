@@ -35,7 +35,7 @@ namespace TinyBrowser {
             Console.WriteLine("Connection closed.");
         }
 
-        public List<string> Get(string startsWith, string endsWith, string value) {
+        public List<string> InBetween(string startsWith, string endsWith, string value) {
 
             List<string> occurrences = new();
             
@@ -49,7 +49,7 @@ namespace TinyBrowser {
                 value = value.Remove(beginsAtPos, length);
             }
 
-            return occurrences;
+            return occurrences.Count == 0 ? null : occurrences;
         }
 
         public List<string> FindOccurrences(string startsWith, string endsWith, string value) {
@@ -58,12 +58,12 @@ namespace TinyBrowser {
             
             var recording = string.Empty;
             
-            for (int i = 0; i < value.Length; i++) {
-                if (i+startsWith.Length < value.Length && value[i] == startsWith[0]) {
-                    if (value.Substring(i, startsWith.Length) == startsWith) {
-                        for (var j = 0; ; j++) {
-                            if (value[i + j] == endsWith[0]) {
-                                if (value.Substring(i + j, endsWith.Length) == endsWith) break;
+            for (int i = 0; i < value.Length; i++) {                                    //iterates over every character of the html string
+                if (i+startsWith.Length < value.Length && value[i] == startsWith[0]) {  //if the current character matches the starting character of startsWith
+                    if (value.Substring(i, startsWith.Length) == startsWith) {  //if the following characters match the startsWith
+                        for (var j = startsWith.Length; ; j++) {                                        //start looping from the point we found the first character matching
+                            if (value[i + j] == endsWith[0]) {                          //if we might have found the start of the endsWith string
+                                if (value.Substring(i + j, endsWith.Length) == endsWith) break; //if the following characters ARE the endsWith string
                             }
                             recording += value[i + j];
                         }
