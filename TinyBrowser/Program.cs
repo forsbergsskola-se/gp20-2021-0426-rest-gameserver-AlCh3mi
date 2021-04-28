@@ -16,11 +16,21 @@ namespace TinyBrowser {
                         break;
 
                     if (userInput == string.Empty)
-                        userInput = "GET /\r/n HTTP/1.0";
+                        userInput = "GET / HTTP/1.1\r\nHost: acme.com\r\n\r\n";
 
                     tinyBrowser.SendRequest(userInput);
                     var response = tinyBrowser.GetHostResponse();
                     Console.WriteLine(response);
+                    
+                    //var title = tinyBrowser.Get("<title>", "</title>", response);
+
+                    //Console.WriteLine(title[0]);
+                    
+                    var links = tinyBrowser.FindOccurrences("<a href=\"", "</a>", response);
+
+                    foreach (var link in links) {
+                        Console.WriteLine(link);
+                    }
                 }
             }
             catch (Exception e) {
@@ -29,6 +39,10 @@ namespace TinyBrowser {
             finally {
                 tinyBrowser.Disconnect();    
             }
+            
+            
         }
+        
+        
     }
 }
