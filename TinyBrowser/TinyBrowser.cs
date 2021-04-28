@@ -58,12 +58,15 @@ namespace TinyBrowser {
             
             var recording = string.Empty;
             
-            for (int i = 0; i < value.Length; i++) {                                    //iterates over every character of the html string
-                if (i+startsWith.Length < value.Length && value[i] == startsWith[0]) {  //if the current character matches the starting character of startsWith
-                    if (value.Substring(i, startsWith.Length) == startsWith) {  //if the following characters match the startsWith
-                        for (var j = startsWith.Length; ; j++) {                                        //start looping from the point we found the first character matching
-                            if (value[i + j] == endsWith[0]) {                          //if we might have found the start of the endsWith string
-                                if (value.Substring(i + j, endsWith.Length) == endsWith) break; //if the following characters ARE the endsWith string
+            for (int i = 0; i < value.Length; i++) {                                                                    //iterates over every character of the html string
+                if (i+startsWith.Length < value.Length && value[i] == startsWith[0]) {                                  //if the current character matches the starting character of startsWith
+                    if (value.Substring(i, startsWith.Length) == startsWith) {                                  //if the following characters match the startsWith
+                        for (var j = 0; ; j++) {                                                                        //start looping from the point we found the first character matching
+                            if (value[i + j] == endsWith[0]) {                                                          //if we might have found the start of the endsWith string
+                                if (value.Substring(i + j, endsWith.Length) == endsWith) {                      //if the following characters ARE the endsWith string
+                                    recording += endsWith;
+                                    break;
+                                }                 
                             }
                             recording += value[i + j];
                         }
