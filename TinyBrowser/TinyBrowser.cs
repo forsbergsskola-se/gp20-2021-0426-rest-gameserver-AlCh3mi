@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
@@ -8,6 +9,7 @@ namespace TinyBrowser {
     class TinyBrowser {
         
         readonly TcpClient tcpClient;
+        
         public TinyBrowser(string hostname, int port) {
             tcpClient = new TcpClient(hostname, port);
             if (tcpClient.Connected) {
@@ -20,7 +22,6 @@ namespace TinyBrowser {
             var asBytes = Encoding.ASCII.GetBytes(message);
             networkStream.Write(asBytes, 0,asBytes.Length);
         }
-
 
         public string GetHostResponse() {
             var networkStream = tcpClient.GetStream();
@@ -35,21 +36,8 @@ namespace TinyBrowser {
             Console.WriteLine("Connection closed.");
         }
 
-        public List<string> InBetween(string startsWith, string endsWith, string value) {
-
-            List<string> occurrences = new();
-            
-            while (value.Contains(startsWith) && value.Contains(endsWith)) {
-                var beginsAtPos = value.IndexOf(startsWith);
-                var length = value.IndexOf(endsWith) + endsWith.Length - beginsAtPos;
-                var subString = value.Substring(beginsAtPos, length);
-                value = value.Replace(subString, "");
-                subString = subString.Replace(startsWith, "").Replace(endsWith, "");
-                occurrences.Add(subString);
-                value = value.Remove(beginsAtPos, length);
-            }
-
-            return occurrences.Count == 0 ? null : occurrences;
+        public List<Link> GenerateLinks(List<string> value) {
+            return value.Select(BuildLink).ToList();
         }
 
         public List<string> FindOccurrences(string startsWith, string endsWith, string value) {
@@ -77,5 +65,26 @@ namespace TinyBrowser {
             }
             return occurrences;
         }
+        
+        string InBetween(string startsWith, string endsWith, string value) {
+            if (value.Contains(startsWith) && value.Contains(endsWith)) {
+                var beginsAtPos = value.IndexOf(startsWith)  + startsWith.Length;
+                var length = value.IndexOf(endsWith) - beginsAtPos;
+                return value.Substring(beginsAtPos, length).Replace("<b>", "").Replace("</b>", "");
+            }
+            return null;
+        }
+
+        Link BuildLink(string value) {
+            Link link;
+            link.Url = InBetween("href=\"", "\">", value);
+            link.Title = InBetween("\">", "</a>", value);
+            return link;
+        }
+    }
+
+    public struct Link {
+        public string Title;
+        public string Url;
     }
 }
