@@ -22,11 +22,8 @@ namespace GitHubExplorer
             
             var playerStatsRequest = ApiInteraction.Request($"https://api.mozambiquehe.re/bridge?platform=PC&player={userReply}&auth=X8MmHiCTDGB3tCgZe0iv");
             var currentPlayer = new PlayerInfo(playerStatsRequest);
-            currentPlayer.ConsoleInteraction();
+            Console.WriteLine(currentPlayer);
             
-            
-            //ApexPlayerInfo.ConsoleInteraction(playerStatsRequest);
-
         }
     }
 }

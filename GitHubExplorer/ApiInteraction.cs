@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace GitHubExplorer {
     public static class ApiInteraction {
-        
         //Player Info Request
         //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth=X8MmHiCTDGB3tCgZe0iv
-        
+
         //Current Map Info
         //https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv
 
@@ -16,7 +15,7 @@ namespace GitHubExplorer {
             var response = RequestAsync(apiRequest);
             return response.Result;
         }
-        
+
         public static string FindInResponse(string header, string toSearch) {
             if (!toSearch.Contains(header)) return null;
             var indexOf = toSearch.IndexOf(header, StringComparison.Ordinal);
@@ -25,30 +24,29 @@ namespace GitHubExplorer {
                 if (toSearch[i] == ',') break;
                 response += toSearch[i];
             }
+
             response = response.Trim();
             return response.Trim('\"');
         }
-        
-        public static string SubSection(string header, string value, string separator) {
-            
+
+        public static string SubSection(string header, string value, string separator = "},") {
             if (!(value.Contains(header) && value.Contains(separator)) || string.IsNullOrEmpty(value)) return null;
-            
+
             var answer = string.Empty;
             var index = value.IndexOf(header, StringComparison.Ordinal);
             var separatorIndex = value.IndexOf(separator, index, StringComparison.Ordinal);
-            
+
             for (var i = index + header.Length; i < separatorIndex; i++) {
                 answer += value[i];
             }
-            
+
             return answer;
         }
-        
-        static async Task<string> RequestAsync(string url)
-        {
-            ServicePointManager.ServerCertificateValidationCallback = 
+
+        static async Task<string> RequestAsync(string url) {
+            ServicePointManager.ServerCertificateValidationCallback =
                 (a, b, c, d) => true;
-            var req = (HttpWebRequest)WebRequest.Create(url);
+            var req = (HttpWebRequest) WebRequest.Create(url);
             var resp = (HttpWebResponse) await req.GetResponseAsync();
             using var sr = new StreamReader(resp.GetResponseStream());
             var results = await sr.ReadToEndAsync();

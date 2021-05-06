@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace GitHubExplorer {
-    public class MapInfo {
+    public class MapInfo : IApexInfo {
 
         //https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv
         
@@ -12,14 +12,14 @@ namespace GitHubExplorer {
         const string Next = "\"next\": {";
 
         public MapInfo(string serverMapRotationInfo) {
-            ExtractCurrentMapInfo(serverMapRotationInfo);
+            Initialize(serverMapRotationInfo);
         }
 
-        void ExtractCurrentMapInfo(string info) {
+        public void Initialize(string serverResponse) {
 
-            if (string.IsNullOrEmpty(info)) return;
+            if (string.IsNullOrEmpty(serverResponse)) return;
             
-            var currentInfo = GetCurrentInfo(info);
+            var currentInfo = GetCurrentInfo(serverResponse);
             Name = ApiInteraction.FindInResponse("map", currentInfo);
             var remainingMins = int.Parse(ApiInteraction.FindInResponse("remainingMins", currentInfo));
             RemainingTime = TimeSpan.FromMinutes(remainingMins);
