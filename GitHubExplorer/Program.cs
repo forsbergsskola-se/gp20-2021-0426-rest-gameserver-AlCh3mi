@@ -11,16 +11,22 @@ namespace GitHubExplorer
         //X8MmHiCTDGB3tCgZe0iv
         
         static void Main(string[] args) {
-            var apexApi = new ApexLegendsApiInteraction();
-            var response = apexApi.Request("https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv");
-            Console.Write(response.Result);
+             //Map Rotation
+             var mapRotationResponse = ApiInteraction.Request("https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv");
+             var currentMapInfo = new MapInfo(mapRotationResponse);
+             Console.WriteLine(currentMapInfo.ToString());
+            
+            Console.Write("Which player would you like info about? ");
+            var userReply = Console.ReadLine();
+            if (string.IsNullOrEmpty(userReply)) userReply = "ArCh4oS";
+            
+            var playerStatsRequest = ApiInteraction.Request($"https://api.mozambiquehe.re/bridge?platform=PC&player={userReply}&auth=X8MmHiCTDGB3tCgZe0iv");
+            var currentPlayer = new PlayerInfo(playerStatsRequest);
+            currentPlayer.ConsoleInteraction();
+            
+            
+            //ApexPlayerInfo.ConsoleInteraction(playerStatsRequest);
 
-            ApexMapInfo ami = new ApexMapInfo();
-            ami.InterpretFromApiResponse(response.Result);
-            Console.WriteLine($"Current Map Name: {ami.Name} for the next {ami.RemainingTime} Minutes.");
-            Console.ReadKey();
-            
-            
         }
     }
 }
