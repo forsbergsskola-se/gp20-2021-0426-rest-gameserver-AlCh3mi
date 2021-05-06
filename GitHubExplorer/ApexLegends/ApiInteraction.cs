@@ -4,30 +4,21 @@ using System.Net;
 using System.Threading.Tasks;
 
 namespace GitHubExplorer.ApexLegends {
-    public static class ApiInteraction {
+    public class ApiInteraction {
         //Player Info Request
-        //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth=X8MmHiCTDGB3tCgZe0iv
+        //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth={config.Auth}
 
         //Current Map Info
-        //https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv
+        //https://api.mozambiquehe.re/maprotation?auth={config.Auth}
 
-        public static string Request(string apiRequest) {
-            var response = RequestAsync(apiRequest);
-            return response.Result;
+        public ConfigJson Config { get; }
+
+        public ApiInteraction() {
+            Config = ConfigJson.LoadAuthorization().Result;
         }
-
-        public static string FindInResponse(string header, string toSearch) {
-            if (!toSearch.Contains(header)) return null;
-            var indexOf = toSearch.IndexOf(header, StringComparison.Ordinal);
-            var response = string.Empty;
-            for (var i = indexOf + header.Length + 2; i < toSearch.Length; i++) {
-                if (toSearch[i] == ',') break;
-                response += toSearch[i];
-            }
-
-            response = response.Trim();
-            return response.Trim('\"');
-        }
+        
+        public static string Request(string apiRequest) 
+            => Task.Run(() => RequestAsync(apiRequest)).Result;
 
         public static string SubSection(string header, string value, string separator = "},") {
             if (!(value.Contains(header) && value.Contains(separator)) || string.IsNullOrEmpty(value)) return null;
@@ -41,6 +32,19 @@ namespace GitHubExplorer.ApexLegends {
             }
 
             return answer;
+        }
+        
+        public static string FindInResponse(string header, string toSearch) {
+            if (!toSearch.Contains(header)) return null;
+            var indexOf = toSearch.IndexOf(header, StringComparison.Ordinal);
+            var response = string.Empty;
+            for (var i = indexOf + header.Length + 2; i < toSearch.Length; i++) {
+                if (toSearch[i] == ',') break;
+                response += toSearch[i];
+            }
+
+            response = response.Trim();
+            return response.Trim('\"');
         }
 
         static async Task<string> RequestAsync(string url) {

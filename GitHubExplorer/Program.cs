@@ -5,16 +5,13 @@ using GitHubExplorer.ApexLegends.Player;
 
 namespace GitHubExplorer {
     class Program {
-        //GitHub Personal Access Token
-        //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
-
-        //Apex Legends API Token
-        //X8MmHiCTDGB3tCgZe0iv
-        Auth authentication = new();
+        
         static void Main(string[] args) {
-            
+
+            var apiInteraction = new ApiInteraction();
+
             //Map Rotation
-            var mapRotationResponse = ApiInteraction.Request("https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv");
+            var mapRotationResponse = ApiInteraction.Request($"https://api.mozambiquehe.re/maprotation?auth={apiInteraction.Config.Auth}");
             var currentMapInfo = new MapInfo(mapRotationResponse);
             Console.WriteLine(currentMapInfo.ToString());
 
@@ -22,7 +19,7 @@ namespace GitHubExplorer {
             var userReply = Console.ReadLine();
             if (string.IsNullOrEmpty(userReply)) userReply = "ArCh4oS";
 
-            var playerStatsRequest = ApiInteraction.Request($"https://api.mozambiquehe.re/bridge?platform=PC&player={userReply}&auth=X8MmHiCTDGB3tCgZe0iv");
+            var playerStatsRequest = ApiInteraction.Request($"https://api.mozambiquehe.re/bridge?platform=PC&player={userReply}&auth={apiInteraction.Config.Auth}");
             var currentPlayer = new PlayerInfo(playerStatsRequest);
             Console.WriteLine(currentPlayer);
         }

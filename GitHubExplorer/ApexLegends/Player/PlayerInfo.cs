@@ -1,7 +1,7 @@
 ﻿namespace GitHubExplorer.ApexLegends.Player {
     public class PlayerInfo : IApexInfo{
         //Apex Player Request
-        //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth=X8MmHiCTDGB3tCgZe0iv
+        //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth=??????
         public string Name { get; private set; }
         public string Uid { get; private set; }
         public string AvatarUrl { get; private set; }
