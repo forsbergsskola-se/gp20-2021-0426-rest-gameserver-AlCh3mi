@@ -1,12 +1,12 @@
-﻿namespace GitHubExplorer {
-    public class Rank : IApexInfo{
+﻿namespace GitHubExplorer.ApexLegends.Player {
+    public class RankInfo : IApexInfo{
         public string Score { get; private set; }
         public string Name { get; private set; }
         public string Division { get; private set; }
         public string ImageUrl { get; private set; }
         public string Season { get; private set; }
 
-        public Rank(string serverResponse) {
+        public RankInfo(string serverResponse) {
             Initialize(serverResponse);
         }
 

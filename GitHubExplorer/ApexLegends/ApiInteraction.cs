@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace GitHubExplorer {
+namespace GitHubExplorer.ApexLegends {
     public static class ApiInteraction {
         //Player Info Request
         //https://api.mozambiquehe.re/bridge?platform=PC&player=DeadwoodZa&auth=X8MmHiCTDGB3tCgZe0iv

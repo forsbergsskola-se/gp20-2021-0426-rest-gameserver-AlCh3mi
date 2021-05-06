@@ -1,4 +1,4 @@
-﻿namespace GitHubExplorer {
+﻿namespace GitHubExplorer.ApexLegends {
     interface IApexInfo {
         public string Name { get; }
 

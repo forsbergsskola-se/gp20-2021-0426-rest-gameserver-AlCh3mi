@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace GitHubExplorer {
+namespace GitHubExplorer.ApexLegends.Map {
     public class MapInfo : IApexInfo {
 
         //https://api.mozambiquehe.re/maprotation?auth=X8MmHiCTDGB3tCgZe0iv
         
         public string Name { get; private set; }
-        public TimeSpan RemainingTime { get; private set; }
+        TimeSpan RemainingTime { get; set; }
         
         const string Current = "\"current\": {";
         const string Next = "\"next\": {";
