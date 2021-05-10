@@ -17,7 +17,7 @@ namespace GitHubExplorer.ApexLegends {
             Config = ConfigJson.LoadAuthorization().Result;
         }
         
-        public static string Request(string apiRequest) 
+        public static string Request(string apiRequest)
             => Task.Run(() => RequestAsync(apiRequest)).Result;
 
         public static string SubSection(string header, string value, string separator = "},") {

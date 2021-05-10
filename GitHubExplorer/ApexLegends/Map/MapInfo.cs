@@ -4,6 +4,7 @@ namespace GitHubExplorer.ApexLegends.Map {
     public class MapInfo : IApexInfo {
 
         //https://api.mozambiquehe.re/maprotation?auth=?????
+        //https://api.mozambiquehe.re/maprotation?version=2&auth=?????
         
         public string Name { get; private set; }
         TimeSpan RemainingTime { get; set; }
