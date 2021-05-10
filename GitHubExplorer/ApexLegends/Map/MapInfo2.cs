@@ -13,7 +13,7 @@ namespace GitHubExplorer.ApexLegends.Map {
         public override string ToString() {
             var response = string.Empty;
             foreach (var mode in Modes) {
-                response += mode.ToString();
+                response += $"{mode.ToString()}\n";
             }
 
             return response;
@@ -64,14 +64,14 @@ namespace GitHubExplorer.ApexLegends.Map {
                     else if (input == 2)
                         ConsoleMapInfo(mode.Next);
                     else {
-                        Console.WriteLine("Invalid Entry. returning..");                                        
+                        Console.WriteLine("Invalid Entry. returning..");
                         break;
                     }
                 }
                 else Console.WriteLine("Invalid Entry. Please try again.");
             }
         }
-        
+
         void ConsoleMapInfo(Map map) {
             Console.WriteLine($"Current         : {map.Name}");
             Console.WriteLine($"Start           : {map.ReadableDateStart}");
@@ -79,35 +79,5 @@ namespace GitHubExplorer.ApexLegends.Map {
             Console.WriteLine($"Duration        : {map.DurationInMinutes}");
             Console.WriteLine($"Mins Remaining  : {map.RemainingMins}");
         }
-    }
-
-    public class GameMode {
-        public Map Current;
-        public Map Next;
-
-        public const string BattleRoyale = "battle_royale";
-        public const string Arenas = "arenas";
-        public const string Ranked = "ranked";
-
-        public override string ToString() => $"Current: {Current} Next: {Next}";
-    }
-
-    public class Map {
-        [JsonProperty("readableDate_start")]
-        public DateTime ReadableDateStart { get; private set; }
-
-        [JsonProperty("readableDate_end")]
-        public DateTime ReadableDateEnd { get; private set; }
-
-        [JsonProperty("map")]
-        public string Name { get; private set; }
-
-        [JsonProperty("DurationInMinutes")]
-        public int DurationInMinutes { get; private set; }
-
-        [JsonProperty("remainingMins")]
-        public int RemainingMins { get; private set; }
-
-        public override string ToString() => Name;
     }
 }

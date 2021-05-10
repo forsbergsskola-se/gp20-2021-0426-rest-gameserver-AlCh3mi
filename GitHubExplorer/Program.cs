@@ -11,6 +11,7 @@ namespace GitHubExplorer {
 
             var mapResponse = ApiInteraction.Request($"https://api.mozambiquehe.re/maprotation?version=2&auth={apiInteraction.Config.Auth}");
             var mapInfo = new MapInfo2(mapResponse);
+            Console.WriteLine(mapInfo.ToString());
             mapInfo.NavigateWithConsole();
             
             //Map Rotation
