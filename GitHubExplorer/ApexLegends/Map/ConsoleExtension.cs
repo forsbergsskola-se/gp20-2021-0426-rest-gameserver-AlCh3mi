@@ -1,25 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace GitHubExplorer.ApexLegends.Map {
-    public class MapInfo2 {
-        Dictionary<string, GameMode> Modes;
+    public static class ConsoleExtension {
+        // MapInfo mapInfo;
+        //
+        // public ConsoleExtension(MapInfo mapInfo) {
+        //     this.mapInfo = mapInfo;
+        // }
 
-        public MapInfo2(string serverResponse) {
-            Modes = JsonConvert.DeserializeObject<Dictionary<string, GameMode>>(serverResponse);
-        }
-
-        public override string ToString() {
-            var response = string.Empty;
-            foreach (var mode in Modes) {
-                response += $"{mode.ToString()}\n";
-            }
-
-            return response;
-        }
-
-        public void NavigateWithConsole() {
+        public static void NavigateWithConsole(this MapInfo mapInfo) {
             Console.WriteLine("MapInfo Console Explorer");
             var quit = false;
             do {
@@ -32,15 +21,15 @@ namespace GitHubExplorer.ApexLegends.Map {
                     switch (modeInt) {
                         case 1: //Display Battle Royale Info
                             Console.WriteLine("Battle Royale:");
-                            MapExplorer(Modes[GameMode.BattleRoyale]);
+                            MapExplorer(mapInfo.Modes[GameMode.BattleRoyale]);
                             break;
                         case 2: //Display Arenas Info
                             Console.WriteLine("Arena's:");
-                            MapExplorer(Modes[GameMode.Arenas]);
+                            MapExplorer(mapInfo.Modes[GameMode.Arenas]);
                             break;
                         case 3:
                             Console.WriteLine("Ranked:");
-                            Console.WriteLine($"{Modes[GameMode.Ranked]}");
+                            Console.WriteLine($"{mapInfo.Modes[GameMode.Ranked]}");
                             break;
                         default:
                             Console.WriteLine("Invalid option, Quitting.");
@@ -51,7 +40,7 @@ namespace GitHubExplorer.ApexLegends.Map {
             } while (!quit);
         }
 
-        void MapExplorer(GameMode mode) {
+        static void MapExplorer(GameMode mode) {
             while (true) {
                 Console.WriteLine("\n1. Current");
                 Console.WriteLine("2. Next");
@@ -72,7 +61,7 @@ namespace GitHubExplorer.ApexLegends.Map {
             }
         }
 
-        void ConsoleMapInfo(Map map) {
+        static void ConsoleMapInfo(Map map) {
             Console.WriteLine($"Current         : {map.Name}");
             Console.WriteLine($"Start           : {map.ReadableDateStart}");
             Console.WriteLine($"End             : {map.ReadableDateEnd}");
