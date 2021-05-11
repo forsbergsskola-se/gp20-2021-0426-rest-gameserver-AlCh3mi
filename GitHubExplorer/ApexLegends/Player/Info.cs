@@ -7,5 +7,6 @@ namespace GitHubExplorer.ApexLegends.Player {
         public Info(string serverResponse) {
             Stats = JsonConvert.DeserializeObject<Stats>(serverResponse);
         }
+        
     }
 }

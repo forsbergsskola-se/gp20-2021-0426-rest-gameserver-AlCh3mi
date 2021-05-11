@@ -3,12 +3,7 @@ using GitHubExplorer.ApexLegends.Map.Data;
 
 namespace GitHubExplorer.ApexLegends.Map {
     public static class ConsoleExtension {
-        // MapInfo mapInfo;
-        //
-        // public ConsoleExtension(MapInfo mapInfo) {
-        //     this.mapInfo = mapInfo;
-        // }
-
+        
         public static void NavigateWithConsole(this MapInfo mapInfo) {
             Console.WriteLine("MapInfo Console Explorer");
             var quit = false;
