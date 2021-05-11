@@ -10,6 +10,7 @@ namespace GitHubExplorer {
             
             var apiInteraction = new ApiInteraction();
 
+            Console.WriteLine(1.1 );
             var mapResponse = ApiInteraction.Request($"https://api.mozambiquehe.re/maprotation?version=2&auth={apiInteraction.Config.Auth}");
             var mapInfo = new MapInfo(mapResponse);
             mapInfo.NavigateWithConsole();
@@ -22,8 +23,7 @@ namespace GitHubExplorer {
 
             var playerStatsRequest = ApiInteraction.Request($"https://api.mozambiquehe.re/bridge?platform=PC&player={userReply}&auth={apiInteraction.Config.Auth}");
             var currentPlayer = new Info(playerStatsRequest);
-            //Console.WriteLine(currentPlayer);
-            Thread.Sleep(2500);
+
             Console.WriteLine(currentPlayer.Stats.Global);
             Console.ReadKey();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace GitHubExplorer.ApexLegends.Map {
+namespace GitHubExplorer.ApexLegends.Map.Data {
     public class Map {
         [JsonProperty("readableDate_start")] public DateTime ReadableDateStart { get; private set; }
         [JsonProperty("readableDate_end")] public DateTime ReadableDateEnd { get; private set; }

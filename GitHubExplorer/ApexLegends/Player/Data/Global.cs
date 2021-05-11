@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GitHubExplorer.ApexLegends.Player.Attributes {
+namespace GitHubExplorer.ApexLegends.Player.Data {
     public class Global {
         [JsonProperty("name")] public string Name { get; private set; }
         [JsonProperty("uid")] public long Uid { get; private set; }
@@ -15,7 +15,7 @@ namespace GitHubExplorer.ApexLegends.Player.Attributes {
 
         public override string ToString() {
             return $"{Name}: Level: {Level}.{ToNextLevelPercent} - {Rank.RankName} {Rank.RankDiv} " +
-                   $"{(Bans.IsActive ? $"BANNED : {Bans.LastBanReason} for {Bans.RemainingSeconds}" : "Not Banned")}";
+                   $"\n{(Bans.IsActive ? $"BANNED : {Bans.LastBanReason} for {Bans.RemainingSeconds}" : "Not currently Banned")}";
         }
     }
 }

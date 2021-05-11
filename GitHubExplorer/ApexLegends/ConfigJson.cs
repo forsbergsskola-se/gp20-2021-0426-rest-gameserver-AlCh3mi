@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace GitHubExplorer.ApexLegends {
     public struct ConfigJson {
-        [JsonProperty("auth")]
-        public string Auth { get; private set; }
+        [JsonProperty("auth")] public string Auth { get; private set; }
         
         public static async Task<ConfigJson> LoadAuthorization() {
             

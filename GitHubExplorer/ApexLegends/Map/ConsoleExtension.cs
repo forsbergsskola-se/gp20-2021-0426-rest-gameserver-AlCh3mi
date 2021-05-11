@@ -1,4 +1,5 @@
 ﻿using System;
+using GitHubExplorer.ApexLegends.Map.Data;
 
 namespace GitHubExplorer.ApexLegends.Map {
     public static class ConsoleExtension {
@@ -61,7 +62,7 @@ namespace GitHubExplorer.ApexLegends.Map {
             }
         }
 
-        static void ConsoleMapInfo(Map map) {
+        static void ConsoleMapInfo(Data.Map map) {
             Console.WriteLine($"Current         : {map.Name}");
             Console.WriteLine($"Start           : {map.ReadableDateStart}");
             Console.WriteLine($"End             : {map.ReadableDateEnd}");

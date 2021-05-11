@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GitHubExplorer.ApexLegends.Player.Attributes {
+namespace GitHubExplorer.ApexLegends.Player.Data {
     public class Rank {
         [JsonProperty("rankScore")] public int RankScore { get; private set; }
         [JsonProperty("rankName")] public string RankName{ get; private set; }

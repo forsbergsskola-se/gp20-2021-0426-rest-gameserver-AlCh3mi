@@ -1,4 +1,4 @@
-﻿namespace GitHubExplorer.ApexLegends.Map {
+﻿namespace GitHubExplorer.ApexLegends.Map.Data {
     public class GameMode {
         public Map Current;
         public Map Next;

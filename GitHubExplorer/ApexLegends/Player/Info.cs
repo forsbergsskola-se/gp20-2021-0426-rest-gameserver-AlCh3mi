@@ -1,4 +1,4 @@
-﻿using GitHubExplorer.ApexLegends.Player.Attributes;
+﻿using GitHubExplorer.ApexLegends.Player.Data;
 using Newtonsoft.Json;
 
 namespace GitHubExplorer.ApexLegends.Player {

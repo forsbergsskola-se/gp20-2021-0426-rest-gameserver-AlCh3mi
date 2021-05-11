@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GitHubExplorer.ApexLegends.Map.Data;
 using Newtonsoft.Json;
 
 namespace GitHubExplorer.ApexLegends.Map {
