@@ -18,6 +18,8 @@ namespace LameScooter
                         rental = new DeprecatedLameScooterRental();
                         break;
                     case "realtime":
+                        rental = new RealTimeLameScooterRental();
+                        break;
                     case "offline":
                         rental = new OfflineLameScooterRental();
                         break;
