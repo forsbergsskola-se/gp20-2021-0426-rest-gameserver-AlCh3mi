@@ -32,6 +32,9 @@ namespace MMORPG
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MMORPG", Version = "v1" });
             });
+            
+            // Register IRepository implementation to the DI-container
+            services.AddSingleton<IRepository, FileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,5 +58,7 @@ namespace MMORPG
                 endpoints.MapControllers();
             });
         }
+        
+        
     }
 }
