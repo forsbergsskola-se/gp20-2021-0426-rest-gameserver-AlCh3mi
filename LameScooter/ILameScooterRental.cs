@@ -2,6 +2,7 @@
 
 namespace LameScooter {
     public interface ILameScooterRental {
+        
         Task<int> GetScooterCountInStation(string stationName);
     }
 }

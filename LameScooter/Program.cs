@@ -6,10 +6,28 @@ namespace LameScooter
     class Program
     {
         static async Task Main(string[] args) {
+
+            if (args.Length is 0 or > 2) 
+                throw new ArgumentException("Invalid parameters. Enter StationName or StationName Provider");
             
-            if (args.Length < 1) return;
+            ILameScooterRental rental;
             
-            ILameScooterRental rental = new OfflineLameScooterRental();
+            if(args.Length == 2) {
+                switch (args[1].ToLower()) {
+                    case "deprecated":
+                        rental = new DeprecatedLameScooterRental();
+                        break;
+                    case "realtime":
+                    case "offline":
+                        rental = new OfflineLameScooterRental();
+                        break;
+                    default:
+                        throw new ArgumentException("Valid arguments are deprecated, offline and realtime");
+                }
+            }
+            else {
+                rental = new OfflineLameScooterRental();
+            }
             
             try {
                 var count = await rental.GetScooterCountInStation(args[0]);
