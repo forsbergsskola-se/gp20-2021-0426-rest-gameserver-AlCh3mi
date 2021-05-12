@@ -1,5 +1,5 @@
 ﻿namespace LameScooter {
     public class LameScooterStationList {
-        Station[] stations;
+        public Station[] stations;
     }
 }

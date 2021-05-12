@@ -13,4 +13,10 @@
     public string state { get; set; }
     public string[] networks { get; set; }
     public string realTimeData { get; set; }
+
+    public override string ToString() {
+        return $"{name} {state}[{id}]:\n" +
+               $"Bikes Available: {bikesAvailable}\n" +
+               $"{spacesAvailable} / {capacity}";
+    }
 }
