@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using LameScooter.Rentals;
+using LameScooter.Rentals.Data;
 
 namespace LameScooter
 {
@@ -13,33 +15,26 @@ namespace LameScooter
             ILameScooterRental rental;
             
             if(args.Length == 2) {
-                switch (args[1].ToLower()) {
-                    case "deprecated":
-                        rental = new DeprecatedLameScooterRental();
-                        break;
-                    case "realtime":
-                        rental = new RealTimeLameScooterRental();
-                        break;
-                    case "offline":
-                        rental = new OfflineLameScooterRental();
-                        break;
-                    default:
-                        throw new ArgumentException("Valid arguments are deprecated, offline and realtime");
-                }
+                rental = args[1].ToLower() switch {
+                    "deprecated" => new DeprecatedLameScooterRental(),
+                    "realtime" => new RealTimeLameScooterRental(),
+                    "offline" => new OfflineLameScooterRental(),
+                    _ => throw new ArgumentException("Valid arguments are deprecated, offline and realtime")
+                };
             }
             else {
                 rental = new OfflineLameScooterRental();
             }
-            
+
             try {
                 var count = await rental.GetScooterCountInStation(args[0]);
                 Console.WriteLine($"Number of Scooters Available at {args[0]}: {count}");
             }
             catch (NotFoundException e) {
-                Console.WriteLine("Could not find: " +e);
+                Console.WriteLine("Could not find: " + e);
             }
             catch (ArgumentException e) {
-                Console.Write("Invalid Argument: " +e);
+                Console.Write("Invalid Argument: " + e);
             }
         }
     }

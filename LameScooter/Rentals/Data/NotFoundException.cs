@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LameScooter {
+namespace LameScooter.Rentals.Data {
     public class NotFoundException : Exception {
         
         public NotFoundException() : base() { }
