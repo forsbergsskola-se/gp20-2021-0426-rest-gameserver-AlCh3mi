@@ -10,7 +10,7 @@ namespace GitHubExplorer.ApexLegends {
             
             var json = string.Empty;
 
-            await using (var fs = File.OpenRead("config.json"))
+            await using (var fs = File.OpenRead("ApexConfig.json"))
             using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
                 json = await sr.ReadToEndAsync()
                     .ConfigureAwait(false);

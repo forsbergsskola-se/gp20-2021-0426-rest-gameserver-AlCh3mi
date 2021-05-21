@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 
 namespace MMORPG {
+    /// <summary>
+    /// The purpose of the class is to persist and manipulate the Player objects in a text file.
+    /// The text file name should be game-dev.txt.
+    /// </summary>
     public class FileRepository : IRepository{
         
          /*Create a class called FileRepository which implements the interface.
-         * The purpose of the class is to persist and manipulate the Player objects in a text file.
          * One possible solution is to serialize the players as JSON to the text file.
-         * The text file name should be game-dev.txt.
          * You can use, for example, File.ReadAllTextAsync and File.WriteAllTextAsync methods for the implementation.*/
          
         public Task<Player> Get(Guid id) {
